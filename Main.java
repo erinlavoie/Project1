@@ -22,6 +22,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
+import javafx.application.Platform;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application
@@ -62,7 +64,6 @@ public class Main extends Application
         // dialog appear asking user for note number
         playButton.addEventHandler(ActionEvent.ACTION, new playScaleEventHandler() );
 
-
         buttons.setSpacing(10.0);
         buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().addAll(playButton, stopButton);
@@ -75,6 +76,14 @@ public class Main extends Application
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 
     }
 
@@ -101,7 +110,7 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
             int starting_pitch = Integer.parseInt(result.get());
 
             for (int i = 0; i < 8; i++) {
-                midi.addNote( starting_pitch + i, volume, 3, 5, 0, 0);
+                midi.addNote( starting_pitch + i*2, volume, 1*i + 1, 1, 0, 0 );
             }
 
             midi.play();
