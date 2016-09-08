@@ -14,15 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-
-
-// HELLO
 
 
 public class Main extends Application
@@ -30,7 +27,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) {
 
-        VBox topContainer = new VBox();
+        BorderPane pane = new BorderPane();
         MenuBar menu = new MenuBar();
         HBox buttons = new HBox();
 
@@ -77,10 +74,10 @@ public class Main extends Application
         buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().addAll(playButton, stopButton);
 
-        topContainer.getChildren().add(menu);
-        topContainer.getChildren().add(buttons);
+        pane.setTop(menu);
+        pane.setCenter(buttons);
 
-        Scene scene = new Scene(topContainer, 300, 250);
+        Scene scene = new Scene(pane, 300, 250);
 
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
