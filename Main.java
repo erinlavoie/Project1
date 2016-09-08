@@ -54,8 +54,8 @@ public class Main extends Application
         playButton.setText("Play scale");
         stopButton.setText("Stop playing");
 
-        playButton.setStyle("-fx-base: lightgreen");
-        stopButton.setStyle("-fx-base: pink");
+        playButton.setStyle("-fx-base: lightgreen;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
+        stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
 
         // dialog appear asking user for note number
         playButton.addEventHandler(ActionEvent.ACTION, new playScaleEventHandler() );
