@@ -21,6 +21,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 
+import java.util.Optional;
+
 
 public class Main extends Application
 {
@@ -87,7 +89,26 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Starting note");
         dialog.setHeaderText("Give me a starting note (0-115): ");
-        dialog.showAndWait();
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+
+            MidiPlayer midi = new MidiPlayer(1, 60);
+
+            int volume = 60;
+
+            int starting_pitch = Integer.parseInt(result.get());
+
+            for (int i = 0; i < 8; i++) {
+                midi.addNote( starting_pitch + i, volume, 3, 5, 0, 0);
+            }
+
+            midi.play();
+
+        }
+
+
     }
 
 
