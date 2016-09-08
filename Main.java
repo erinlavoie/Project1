@@ -22,7 +22,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 
 
-// HELLO
+// HELLO
 
 
 public class Main extends Application
