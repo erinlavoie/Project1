@@ -58,16 +58,7 @@ public class Main extends Application
         stopButton.setStyle("-fx-base: pink");
 
         // dialog appear asking user for note number
-        playButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event) {
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Starting note");
-                dialog.setHeaderText("Give me a starting note (0-115):");
-                dialog.showAndWait();
-            }
-        });
+        playButton.addEventHandler(ActionEvent.ACTION, new playScaleEventHandler() );
 
 
         buttons.setSpacing(10.0);
@@ -88,4 +79,18 @@ public class Main extends Application
     public static void main(String[] args) {
         launch(args);
     }
+}
+
+class playScaleEventHandler implements EventHandler<ActionEvent> {
+
+    public void handle(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Starting note");
+        dialog.setHeaderText("Give me a starting note (0-115): ");
+        dialog.showAndWait();
+    }
+
+
+
+
 }
