@@ -22,7 +22,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
-import javafx.application.Platform;
 import javafx.stage.WindowEvent;
 
 
@@ -80,7 +79,6 @@ public class Main extends Application
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                Platform.exit();
                 System.exit(0);
             }
         });
@@ -112,19 +110,18 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
             int startTick = 0;
 
 
-            int[] major_scale = new int[] {0, 2, 2, 1, 2, 2, 2, 1};
+            int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1};
 
             for (int i = 0; i < major_scale.length; i++) {
-                midi.addNote( starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0 );
+                midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
             }
 
             for (int j = 7; j > 0; j--) {
-                midi.addNote( starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0 );
+                midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
             }
 
             midi.play();
 
         }
     }
-
 }
