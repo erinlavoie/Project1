@@ -97,11 +97,14 @@ public class Main extends Application
 
     public void playScale(int starting_pitch, MidiPlayer midi) {
 
+        midi.stop();
+        midi.clear();
+
         // Settings for Scale
         int volume = 60;
         int startTick = 0;
 
-        int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1};
+        int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1, 0};
 
         for (int i = 0; i < major_scale.length; i++) {
             midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
