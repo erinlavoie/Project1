@@ -108,29 +108,25 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
             int volume = 60;
 
             int starting_pitch = Integer.parseInt(result.get());
+            int ending_pitch = starting_pitch;
 
-//            for (int i = 0; i < 8; i++) {
-//                midi.addNote( starting_pitch + i*2, volume, 1*i + 1, 1, 0, 0 );
-//            }
+            int startTick = 0;
 
-            midi.addNote( starting_pitch + 0, volume, 1, 1, 0, 0 );
-            midi.addNote( starting_pitch + 2, volume, 2, 1, 0, 0 );
-            midi.addNote( starting_pitch + 4, volume, 3, 1, 0, 0 );
-            midi.addNote( starting_pitch + 5, volume, 4, 1, 0, 0 );
-            midi.addNote( starting_pitch + 7, volume, 5, 1, 0, 0 );
-            midi.addNote( starting_pitch + 9, volume, 6, 1, 0, 0 );
-            midi.addNote( starting_pitch + 11, volume, 7, 1, 0, 0 );
-            midi.addNote( starting_pitch + 12, volume, 8, 1, 0, 0 );
 
+            int[] major_scale = new int[] {0, 2, 2, 1, 2, 2, 2, 1};
+
+            for (int i = 0; i < major_scale.length; i++) {
+                midi.addNote( starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0 );
+            }
+
+            ending_pitch = starting_pitch;
+            for (int j = 7; j > 0; j--) {
+                midi.addNote( ending_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0 );
+            }
 
             midi.play();
 
         }
-
-
     }
-
-
-
 
 }
