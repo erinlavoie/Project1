@@ -30,6 +30,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) {
 
+
         BorderPane pane = new BorderPane();
         MenuBar menu = new MenuBar();
         HBox buttons = new HBox();
@@ -39,7 +40,7 @@ public class Main extends Application
         MenuItem exit = new MenuItem("Exit");
 
         // window disappears and the application quits when exit clicked
-        exit.addEventHandler( ActionEvent.ACTION, event -> System.exit(0) );
+        exit.setOnAction(event -> System.exit(0));
 
         file.getItems().addAll(exit);
         menu.getMenus().addAll(file);
@@ -55,7 +56,7 @@ public class Main extends Application
         stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
 
         // dialog appear asking user for note number
-        playButton.addEventHandler(ActionEvent.ACTION, new playScaleEventHandler() );
+        playButton.setOnAction(event -> getStartingPitch());
 
         buttons.setSpacing(10.0);
         buttons.setAlignment(Pos.CENTER);
@@ -79,14 +80,8 @@ public class Main extends Application
 
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+    public void getStartingPitch() {
 
-class playScaleEventHandler implements EventHandler<ActionEvent> {
-
-    public void handle(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Starting note");
         dialog.setHeaderText("Give me a starting note (0-115): ");
@@ -94,28 +89,38 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-
-            MidiPlayer midi = new MidiPlayer(5, 60);
-
-            int volume = 60;
-
-            int starting_pitch = Integer.parseInt(result.get());
-
-            int startTick = 0;
-
-
-            int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1};
-
-            for (int i = 0; i < major_scale.length; i++) {
-                midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
-            }
-
-            for (int j = 7; j > 0; j--) {
-                midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
-            }
-
-            midi.play();
-
+            playScale( Integer.parseInt(result.get()) );
         }
+
+    }
+
+    public void playScale(int starting_pitch ) {
+
+        // Settings for MidiPlayer and Scale
+        int resolution = 5;
+        int beatsPerMinute = 60;
+        int volume = 60;
+        int startTick = 0;
+
+        // creating MidiPlayer
+        MidiPlayer midi = new MidiPlayer(resolution, beatsPerMinute);
+
+        int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1};
+
+        for (int i = 0; i < major_scale.length; i++) {
+            midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
+        }
+
+        for (int j = 7; j > 0; j--) {
+            midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
+        }
+
+        midi.play();
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
+
