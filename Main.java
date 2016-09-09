@@ -24,12 +24,12 @@ import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 import javafx.stage.WindowEvent;
 
-
 public class Main extends Application
 {
     @Override
     public void start(Stage primaryStage) {
 
+        MidiPlayer midi = new MidiPlayer(5, 60);
 
         BorderPane pane = new BorderPane();
         MenuBar menu = new MenuBar();
@@ -56,7 +56,8 @@ public class Main extends Application
         stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
 
         // dialog appear asking user for note number
-        playButton.setOnAction(event -> getStartingPitch());
+        playButton.setOnAction(event -> getStartingPitch(midi));
+        stopButton.setOnAction(event -> stopScale(midi));
 
         buttons.setSpacing(10.0);
         buttons.setAlignment(Pos.CENTER);
@@ -80,7 +81,7 @@ public class Main extends Application
 
     }
 
-    public void getStartingPitch() {
+    public void getStartingPitch(MidiPlayer midi) {
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Starting note");
@@ -89,21 +90,16 @@ public class Main extends Application
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-            playScale( Integer.parseInt(result.get()) );
+            playScale( Integer.parseInt(result.get()), midi);
         }
 
     }
 
-    public void playScale(int starting_pitch ) {
+    public void playScale(int starting_pitch, MidiPlayer midi) {
 
-        // Settings for MidiPlayer and Scale
-        int resolution = 5;
-        int beatsPerMinute = 60;
+        // Settings for Scale
         int volume = 60;
         int startTick = 0;
-
-        // creating MidiPlayer
-        MidiPlayer midi = new MidiPlayer(resolution, beatsPerMinute);
 
         int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1};
 
@@ -119,8 +115,11 @@ public class Main extends Application
 
     }
 
+    public void stopScale(MidiPlayer midi) {
+        midi.stop();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
 }
-
