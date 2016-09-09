@@ -40,13 +40,7 @@ public class Main extends Application
         MenuItem exit = new MenuItem("Exit");
 
         // window disappears and the application quits when exit clicked
-        exit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event) {
-                System.exit(0);
-            }
-        });
+        exit.addEventHandler( ActionEvent.ACTION, event -> System.exit(0) );
 
         file.getItems().addAll(exit);
         menu.getMenus().addAll(file);
@@ -103,7 +97,7 @@ class playScaleEventHandler implements EventHandler<ActionEvent> {
 
         if (result.isPresent()) {
 
-            MidiPlayer midi = new MidiPlayer(1, 60);
+            MidiPlayer midi = new MidiPlayer(5, 60);
 
             int volume = 60;
 
