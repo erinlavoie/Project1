@@ -3,7 +3,7 @@
  * Author: Erin Lavoie and Tiffany Lam
  * Course: CS361
  * Project: 1
- * Date: Sept. 6, 2016
+ * Date: Sept. 15, 2016
  */
 
 import javafx.application.Application;
