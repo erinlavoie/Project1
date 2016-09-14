@@ -26,11 +26,16 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application
 {
+    //fields
+    private MidiPlayer midi;
+
     @Override
     public void start(Stage primaryStage) {
 
-        MidiPlayer midi = new MidiPlayer(5, 60);
+        // initializing the midi player
+        this.midi = new MidiPlayer(5, 60);
 
+        // buidling the GUI
         BorderPane pane = new BorderPane();
         MenuBar menu = new MenuBar();
         HBox buttons = new HBox();
@@ -42,32 +47,40 @@ public class Main extends Application
         // window disappears and the application quits when exit clicked
         exit.setOnAction(event -> System.exit(0));
 
+        // adding exit to file and file to menu
         file.getItems().addAll(exit);
         menu.getMenus().addAll(file);
 
-        // add buttons
+        // creating the play and stop button
         Button playButton = new Button();
         Button stopButton = new Button();
 
+        // setting the text for the play and stop buttons
         playButton.setText("Play scale");
         stopButton.setText("Stop playing");
 
+        // setting the style for the play and stop buttons
         playButton.setStyle("-fx-base: lightgreen;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
         stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
 
-        // dialog appear asking user for note number
-        playButton.setOnAction(event -> getStartingPitch(midi));
-        stopButton.setOnAction(event -> stopScale(midi));
+        // when playButton is clicked call getStartingPitch to open dialog box and get starting pitch
+        // when stopButton is clicked call stopScale to stop the MidiPlayer from player
+        playButton.setOnAction(event -> getStartingPitch());
+        stopButton.setOnAction(event -> stopScale());
 
+        // styling the hbox (buttons) and adding the buttons to the hbox
         buttons.setSpacing(10.0);
         buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().addAll(playButton, stopButton);
 
+        // placing the menu and buttons on the pane
         pane.setTop(menu);
         pane.setCenter(buttons);
 
+        // creating a new scene
         Scene scene = new Scene(pane, 300, 250);
 
+        // formatting the primaryStage, closing program when primary stage is closed
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -81,7 +94,7 @@ public class Main extends Application
 
     }
 
-    public void getStartingPitch(MidiPlayer midi) {
+    public void getStartingPitch() {
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Starting note");
@@ -90,15 +103,15 @@ public class Main extends Application
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-            playScale( Integer.parseInt(result.get()), midi);
+            playScale( Integer.parseInt(result.get() ) );
         }
 
     }
 
-    public void playScale(int starting_pitch, MidiPlayer midi) {
+    public void playScale(int starting_pitch) {
 
-        midi.stop();
-        midi.clear();
+        this.midi.stop();
+        this.midi.clear();
 
         // Settings for Scale
         int volume = 60;
@@ -107,19 +120,19 @@ public class Main extends Application
         int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1, 0};
 
         for (int i = 0; i < major_scale.length; i++) {
-            midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
+            this.midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
         }
 
         for (int j = 7; j > 0; j--) {
-            midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
+            this.midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
         }
 
-        midi.play();
+        this.midi.play();
 
     }
 
-    public void stopScale(MidiPlayer midi) {
-        midi.stop();
+    public void stopScale() {
+        this.midi.stop();
     }
 
     public static void main(String[] args) {
