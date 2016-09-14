@@ -7,7 +7,6 @@
  */
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -60,11 +59,13 @@ public class Main extends Application
         stopButton.setText("Stop playing");
 
         // setting the style for the play and stop buttons
-        playButton.setStyle("-fx-base: lightgreen;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
-        stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;" + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
+        playButton.setStyle("-fx-base: lightgreen;" + "-fx-border-color: black;"
+                          + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
+        stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;"
+                          + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
 
-        // when playButton is clicked call getStartingPitch to open dialog box and get starting pitch
-        // when stopButton is clicked call stopScale to stop the MidiPlayer from player
+        // when playButton is clicked, call getStartingPitch to open dialog box and get starting pitch
+        // when stopButton is clicked, call stopScale to stop the MidiPlayer from playing
         playButton.setOnAction(event -> getStartingPitch());
         stopButton.setOnAction(event -> stopScale());
 
@@ -117,12 +118,15 @@ public class Main extends Application
         int volume = 60;
         int startTick = 0;
 
+        // the pitch intervals for a major scale
         int[] major_scale = new int[]{0, 2, 2, 1, 2, 2, 2, 1, 0};
 
+        // plays the scale going up in pitch
         for (int i = 0; i < major_scale.length; i++) {
             this.midi.addNote(starting_pitch += major_scale[i], volume, startTick += 1, 1, 0, 0);
         }
 
+        // plays the scale going down in pitch
         for (int j = 7; j > 0; j--) {
             this.midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
         }
