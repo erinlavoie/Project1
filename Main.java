@@ -21,6 +21,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import java.util.Optional;
 
+/**
+ * Runs a program with a JavaFX GUI that upon user input will
+ * play an 8-note major scale. Uses MidiPlayer for audio.
+ */
 public class Main extends Application
 {
     //fields
@@ -106,12 +110,16 @@ public class Main extends Application
      */
     public void getStartingPitch() {
 
+        // initializing the dialog
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Starting note");
         dialog.setHeaderText("Give me a starting note (0-115): ");
 
+        // Displays the dialog. Will wait until user responds.
+        // result will store the results
         Optional<String> result = dialog.showAndWait();
 
+        // if the user has given an input, call playScale
         if (result.isPresent()) {
             playScale( Integer.parseInt(result.get() ) );
         }
@@ -152,14 +160,15 @@ public class Main extends Application
     }
 
     /**
-     *
+     * Stops the MidiPlayer from playing the current scale and clears the note cache
      */
     public void stopScale() {
         this.midi.stop();
+        this.midi.clear();
     }
 
     /**
-     *
+     * main method. calls launch method.
      * @param args
      */
     public static void main(String[] args) {
