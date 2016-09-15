@@ -1,4 +1,4 @@
-/*
+/**
  * File: Main.java
  * Author: Erin Lavoie and Tiffany Lam
  * Course: CS361
@@ -24,6 +24,9 @@ import java.util.Optional;
 public class Main extends Application
 {
     //fields
+    /**
+     * MidiPlayer object that plays and stops scales
+     */
     private MidiPlayer midi;
 
     @Override
@@ -93,6 +96,14 @@ public class Main extends Application
 
     }
 
+    /**
+     * Opens a Dialog to get starting pitch val
+     *
+     * User has two options, OK and Cancel. They should only be clicked once the
+     * user has input their starting pitch val in the textbox. Cancel closes the
+     * Dialog and OK calls playScale with the input int pitch value
+     *
+     */
     public void getStartingPitch() {
 
         TextInputDialog dialog = new TextInputDialog();
@@ -107,8 +118,14 @@ public class Main extends Application
 
     }
 
+    /**
+     * Takes in an int starting pitch val, builds a major 8-note scale, and plays it.
+     *
+     * @param starting_pitch an integer value that determines the scale's starting point.
+     */
     public void playScale(int starting_pitch) {
 
+        // if there is a scale being played, stop it. Clear the "note cache"
         this.midi.stop();
         this.midi.clear();
 
@@ -129,14 +146,22 @@ public class Main extends Application
             this.midi.addNote(starting_pitch -= major_scale[j], volume, startTick += 1, 1, 0, 0);
         }
 
+        // plays scale
         this.midi.play();
 
     }
 
+    /**
+     *
+     */
     public void stopScale() {
         this.midi.stop();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
