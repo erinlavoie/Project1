@@ -22,8 +22,11 @@ import javafx.geometry.Pos;
 import java.util.Optional;
 
 /**
- * Runs a program with a JavaFX GUI that upon user input will
- * play an 8-note major scale. Uses MidiPlayer for audio.
+ *
+ * <P>Runs a program with a JavaFX GUI that upon user input will
+ * play an 8-note major scale. Uses MidiPlayer for audio.</P>
+ *
+ * @author Tiffany Lam, Erin Lavoie
  */
 public class Main extends Application
 {
@@ -101,11 +104,11 @@ public class Main extends Application
     }
 
     /**
-     * Opens a Dialog to get starting pitch val
+     * <P>Opens a Dialog to get starting pitch val</P>
      *
-     * User has two options, OK and Cancel. They should only be clicked once the
+     * <P>User has two options, OK and Cancel. They should only be clicked once the
      * user has input their starting pitch val in the textbox. Cancel closes the
-     * Dialog and OK calls playScale with the input int pitch value
+     * Dialog and OK calls playScale with the input int pitch value </P>
      *
      */
     public void getStartingPitch() {
@@ -127,7 +130,7 @@ public class Main extends Application
     }
 
     /**
-     * Takes in an int starting pitch val, builds a major 8-note scale, and plays it.
+     * <P>Takes in an int starting pitch val, builds a major 8-note scale, and plays it.</P>
      *
      * @param starting_pitch an integer value that determines the scale's starting point.
      */
@@ -160,7 +163,7 @@ public class Main extends Application
     }
 
     /**
-     * Stops the MidiPlayer from playing the current scale and clears the note cache
+     * <P>Stops the MidiPlayer from playing the current scale and clears the note cache</P>
      */
     public void stopScale() {
         this.midi.stop();
@@ -168,7 +171,7 @@ public class Main extends Application
     }
 
     /**
-     * main method. calls launch method.
+     * <P>main method. calls launch method.</P>
      * @param args
      */
     public static void main(String[] args) {
