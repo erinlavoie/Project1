@@ -6,6 +6,8 @@
  * Date: Sept. 15, 2016
  */
 
+package proj2LamLavoie;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -44,9 +46,7 @@ public class Main extends Application
         // initializing the midi player
         this.midi = new MidiPlayer(5, 60);
 
-        // buidling the GUI
-//        BorderPane pane = new BorderPane();
-
+        // layout for the GUI using FXML file
         BorderPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
         /*
@@ -98,6 +98,9 @@ public class Main extends Application
         // formatting the primaryStage, closing program when primary stage is closed
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
+
+        scene.getStylesheets().add(Main.class.getResource("Main.css").toExternalForm());
+
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

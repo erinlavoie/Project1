@@ -1,0 +1,13 @@
+.button {
+    -fx-border-color: black;
+    -fx-background-radius: 5.0;
+    -fx-border-radius: 5.0;
+}
+
+#playButton {
+    -fx-background-color: lightgreen;
+}
+
+#stopButton {
+    -fx-background-color: lightpink;
+}
