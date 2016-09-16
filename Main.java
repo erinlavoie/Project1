@@ -21,6 +21,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import java.util.Optional;
 
+import javafx.fxml.FXMLLoader;
+
 /**
  *
  * <P>Runs a program with a JavaFX GUI that upon user input will
@@ -37,13 +39,17 @@ public class Main extends Application
     private MidiPlayer midi;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
 
         // initializing the midi player
         this.midi = new MidiPlayer(5, 60);
 
         // buidling the GUI
-        BorderPane pane = new BorderPane();
+//        BorderPane pane = new BorderPane();
+
+        BorderPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
+
+        /*
         MenuBar menu = new MenuBar();
         HBox buttons = new HBox();
 
@@ -85,7 +91,7 @@ public class Main extends Application
         // placing the menu and buttons on the pane
         pane.setTop(menu);
         pane.setCenter(buttons);
-
+*/
         // creating a new scene
         Scene scene = new Scene(pane, 300, 250);
 
