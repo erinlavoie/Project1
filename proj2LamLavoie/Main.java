@@ -34,6 +34,7 @@ public class Main extends Application
      */
     private MidiPlayer midi;
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -43,49 +44,6 @@ public class Main extends Application
         // layout for the GUI using FXML file
         BorderPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
-        /*
-        MenuBar menu = new MenuBar();
-        HBox buttons = new HBox();
-
-        // File menu with one menu item "Exit"
-        Menu file = new Menu("File");
-        MenuItem exit = new MenuItem("Exit");
-
-        // window disappears and the application quits when exit clicked
-        exit.setOnAction(event -> System.exit(0));
-
-        // adding exit to file and file to menu
-        file.getItems().addAll(exit);
-        menu.getMenus().addAll(file);
-
-        // creating the play and stop button
-        Button playButton = new Button();
-        Button stopButton = new Button();
-
-        // setting the text for the play and stop buttons
-        playButton.setText("Play scale");
-        stopButton.setText("Stop playing");
-
-        // setting the style for the play and stop buttons
-        playButton.setStyle("-fx-base: lightgreen;" + "-fx-border-color: black;"
-                          + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
-        stopButton.setStyle("-fx-base: pink;" + "-fx-border-color: black;"
-                          + "-fx-background-radius: 5.0;" + "-fx-border-radius: 5.0");
-
-        // when playButton is clicked, call getStartingPitch to open dialog box and get starting pitch
-        // when stopButton is clicked, call stopScale to stop the MidiPlayer from playing
-        playButton.setOnAction(event -> getStartingPitch());
-        stopButton.setOnAction(event -> stopScale());
-
-        // styling the hbox (buttons) and adding the buttons to the hbox
-        buttons.setSpacing(10.0);
-        buttons.setAlignment(Pos.CENTER);
-        buttons.getChildren().addAll(playButton, stopButton);
-
-        // placing the menu and buttons on the pane
-        pane.setTop(menu);
-        pane.setCenter(buttons);
-*/
         // creating a new scene
         Scene scene = new Scene(pane, 300, 250);
 
@@ -93,6 +51,7 @@ public class Main extends Application
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
 
+        // styling with CSS
         scene.getStylesheets().add(Main.class.getResource("Main.css").toExternalForm());
 
         primaryStage.show();
@@ -128,7 +87,7 @@ public class Main extends Application
 
         // if the user has given an input, call playScale
         if (result.isPresent()) {
-            playScale( Integer.parseInt(result.get() ) );
+            playScale( Integer.parseInt( result.get() ) );
         }
 
     }
@@ -139,7 +98,6 @@ public class Main extends Application
      * @param starting_pitch an integer value that determines the scale's starting point.
      */
     public void playScale(int starting_pitch) {
-
         // if there is a scale being played, stop it. Clear the "note cache"
         this.midi.stop();
         this.midi.clear();
@@ -172,6 +130,13 @@ public class Main extends Application
     public void stopScale() {
         this.midi.stop();
         this.midi.clear();
+    }
+
+    /**
+     * <P>Window disappears and the application quits when exit clicked</P>
+     */
+    public void exitWindow() {
+        System.exit(0);
     }
 
     /**
