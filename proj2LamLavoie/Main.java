@@ -47,22 +47,17 @@ public class Main extends Application
         // creating a new scene
         Scene scene = new Scene(pane, 300, 250);
 
-        // formatting the primaryStage, closing program when primary stage is closed
-        primaryStage.setTitle("Scale Player");
-        primaryStage.setScene(scene);
-
         // styling with CSS
         scene.getStylesheets().add(Main.class.getResource("Main.css").toExternalForm());
 
+        // formatting the primaryStage
+        primaryStage.setTitle("Scale Player");
+        primaryStage.setScene(scene);
+
         primaryStage.show();
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                System.exit(0);
-            }
-        });
-
+        // closing program when primary stage is closed
+        primaryStage.setOnCloseRequest( event -> { exitWindow(); } );
     }
 
     /**
