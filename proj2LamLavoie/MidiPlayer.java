@@ -6,6 +6,8 @@
  * Date: September 6, 2016
  */
 
+package proj2LamLavoie;
+
 import javax.sound.midi.*;
 
 /**

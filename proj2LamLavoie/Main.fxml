@@ -11,7 +11,8 @@
             minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="250.0" prefWidth="300.0"
             xmlns="http://javafx.com/javafx/8.0.60"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="proj2LamLavoie.Main">
    <top>
       <MenuBar fx:id="menu" prefHeight="15.0" prefWidth="608.0" BorderPane.alignment="CENTER">
         <menus>
@@ -27,7 +28,7 @@
       <HBox fx:id="buttons" alignment="CENTER" prefHeight="256.0" prefWidth="460.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="playButton" mnemonicParsing="false" onAction="#getStartingPitch" text="Play Scale" />
-            <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopPlaying" text="Stop Playing" />
+            <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopScale" text="Stop Playing" />
          </children>
       </HBox>
    </center>
