@@ -2,20 +2,17 @@
  * File: Main.java
  * Author: Erin Lavoie and Tiffany Lam
  * Course: CS361
- * Project: 1
- * Date: Sept. 15, 2016
+ * Project: 2
+ * Date: Sept. 22, 2016
  */
 
 package proj2LamLavoie;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextInputDialog;
-import javafx.event.EventHandler;
 import java.util.Optional;
 import javafx.fxml.FXMLLoader;
 
@@ -42,7 +39,9 @@ public class Main extends Application
         this.midi = new MidiPlayer(5, 60);
 
         // layout for the GUI using FXML file
-        BorderPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Main.fxml"));
+        fxmlLoader.setController(this);
+        BorderPane pane = fxmlLoader.load();
 
         // creating a new scene
         Scene scene = new Scene(pane, 300, 250);
@@ -69,7 +68,7 @@ public class Main extends Application
      *
      */
 
-    public void getStartingPitch() {
+    public String getStartingPitch() {
 
         // initializing the dialog
         TextInputDialog dialog = new TextInputDialog();
@@ -82,17 +81,23 @@ public class Main extends Application
 
         // if the user has given an input, call playScale
         if (result.isPresent()) {
-            playScale( Integer.parseInt( result.get() ) );
+            return result.get();
         }
+
+        return null;
 
     }
 
     /**
-     * <P>Takes in an int starting pitch val, builds a major 8-note scale, and plays it.</P>
+     * <P>Takes in an int starting pitch val, builds a major 8-note scale, and plays it up and down.
+     * The program crashes if the input value is less than 0 or greater than 115.
+     * </P>
      *
-     * @param starting_pitch an integer value that determines the scale's starting point.
      */
-    public void playScale(int starting_pitch) {
+    public void playScale() {
+
+        int starting_pitch = Integer.parseInt( getStartingPitch() );
+
         // if there is a scale being played, stop it. Clear the "note cache"
         this.midi.stop();
         this.midi.clear();
