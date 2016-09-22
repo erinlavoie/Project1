@@ -13,18 +13,18 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextInputDialog;
+
 import java.util.Optional;
+
 import javafx.fxml.FXMLLoader;
 
 /**
- *
  * <P>Runs a program with a JavaFX GUI that upon user input will
  * play an 8-note major scale. Uses MidiPlayer for audio.</P>
  *
  * @author Tiffany Lam, Erin Lavoie
  */
-public class Main extends Application
-{
+public class Main extends Application {
     //fields
     /**
      * MidiPlayer object that plays and stops scales
@@ -56,19 +56,31 @@ public class Main extends Application
         primaryStage.show();
 
         // closing program when primary stage is closed
-        primaryStage.setOnCloseRequest( event -> { exitWindow(); } );
+        primaryStage.setOnCloseRequest(event -> {
+            exitWindow();
+        });
+    }
+
+    public void getPitchAndPlay() {
+
+        Optional<Integer> userInputPitch = getStartingPitch();
+
+        if (userInputPitch.isPresent()) {
+            playScale( userInputPitch.get() );
+        }
+
+        return;
     }
 
     /**
      * <P>Opens a Dialog to get starting pitch val</P>
-     *
+     * <p>
      * <P>User has two options, OK and Cancel. They should only be clicked once the
      * user has input their starting pitch val in the textbox. Cancel closes the
      * Dialog and OK calls playScale with the input int pitch value </P>
-     *
      */
 
-    public String getStartingPitch() {
+    public Optional<Integer> getStartingPitch() {
 
         // initializing the dialog
         TextInputDialog dialog = new TextInputDialog();
@@ -81,10 +93,12 @@ public class Main extends Application
 
         // if the user has given an input, call playScale
         if (result.isPresent()) {
-            return result.get();
+            Optional<Integer> starting_pitch = Optional.of(Integer.valueOf(result.get()));
+            return starting_pitch;
+        } else {
+            return Optional.empty();
         }
 
-        return null;
 
     }
 
@@ -92,11 +106,8 @@ public class Main extends Application
      * <P>Takes in an int starting pitch val, builds a major 8-note scale, and plays it up and down.
      * The program crashes if the input value is less than 0 or greater than 115.
      * </P>
-     *
      */
-    public void playScale() {
-
-        int starting_pitch = Integer.parseInt( getStartingPitch() );
+    public void playScale(Integer starting_pitch) {
 
         // if there is a scale being played, stop it. Clear the "note cache"
         this.midi.stop();
@@ -141,6 +152,7 @@ public class Main extends Application
 
     /**
      * <P>main method. calls launch method.</P>
+     *
      * @param args
      */
     public static void main(String[] args) {
