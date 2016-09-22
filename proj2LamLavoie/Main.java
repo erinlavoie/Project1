@@ -61,7 +61,7 @@ public class Main extends Application {
         });
     }
 
-    public void getPitchAndPlay() {
+    public void handlePlayButton() {
 
         Optional<Integer> userInputPitch = getStartingPitch();
 

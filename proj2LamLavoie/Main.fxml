@@ -22,7 +22,7 @@
    <center>
       <HBox fx:id="buttons" alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playButton" onAction="#getPitchAndPlay" text="Play Scale" />
+            <Button fx:id="playButton" onAction="#handlePlayButton" text="Play Scale" />
             <Button fx:id="stopButton" onAction="#stopScale" text="Stop Playing" />
          </children>
       </HBox>
