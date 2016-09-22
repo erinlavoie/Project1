@@ -61,12 +61,19 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * <P>Is called when the user clicks the playButton. Assigns the result of getStartingPitch to an
+     * Optional, checks if there is an integer value. If there is an Integer val inside the Optional, it then
+     * calls playScale with the Integer val. Otherwise it does nothing and returns. </P>
+     */
     public void handlePlayButton() {
 
+        // Assigns result of getStartingPitch to userInputPitch
         Optional<Integer> userInputPitch = getStartingPitch();
 
+        // Check if an Integer values is present. If yet, calls playScale with UserInputPitch
         if (userInputPitch.isPresent()) {
-            playScale( userInputPitch.get() );
+            playScale(userInputPitch.get());
         }
 
         return;
@@ -74,10 +81,13 @@ public class Main extends Application {
 
     /**
      * <P>Opens a Dialog to get starting pitch val</P>
-     * <p>
      * <P>User has two options, OK and Cancel. They should only be clicked once the
      * user has input their starting pitch val in the textbox. Cancel closes the
-     * Dialog and OK calls playScale with the input int pitch value </P>
+     * Dialog and OK calls playScale with the input int pitch value. This program crashes
+     * when the user inputs a non-Integer value. </P>
+     *
+     * @return Optional<Integer> this program will return an Optional Integer if the user has given an
+     * input and will otherwise return an empty Optional.
      */
 
     public Optional<Integer> getStartingPitch() {
@@ -91,11 +101,14 @@ public class Main extends Application {
         // result will store the results
         Optional<String> result = dialog.showAndWait();
 
-        // if the user has given an input, call playScale
+        // check if the user has given an input
         if (result.isPresent()) {
+            //we assign starting_pitch to an Optional of result cast as an Integer
             Optional<Integer> starting_pitch = Optional.of(Integer.valueOf(result.get()));
             return starting_pitch;
-        } else {
+        }
+        // otherwise return an empty optional
+        else {
             return Optional.empty();
         }
 
@@ -106,12 +119,13 @@ public class Main extends Application {
      * <P>Takes in an int starting pitch val, builds a major 8-note scale, and plays it up and down.
      * The program crashes if the input value is less than 0 or greater than 115.
      * </P>
+     *
+     * @param starting_pitch an integer value
      */
     public void playScale(Integer starting_pitch) {
 
         // if there is a scale being played, stop it. Clear the "note cache"
-        this.midi.stop();
-        this.midi.clear();
+        stopScale();
 
         // Settings for Scale
         int volume = 60;
